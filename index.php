@@ -1,45 +1,12 @@
 <?php
 
+require_once('./ORM/table.class.php'); // classe mere de l'ORM
+require_once('./Model/Comment.php'); // un exemple de classe fille de l'ORM (comme Film, ou Genre)
+require_once('./Model/Post.php'); 
 // Inclusion du fichier de connexion à la base de données
-include 'database.php';
+// include 'database.php';
 
-// Définition de la route courante
-$route = isset($_GET['route']) ? $_GET['route'] : 'home';
+include './Controller/Controller.php';
 
-// Chargement du contrôleur et de la vue correspondant à la route
-switch ($route) {
-  case 'home':
-    $controller = 'HomeController';
-    $action = 'index';
-    break;
-  case 'posts':
-    $controller = 'PostsController';
-    $action = 'index';
-    break;
-  case 'post':
-    $controller = 'PostsController';
-    $action = 'show';
-    break;
-  case 'comments':
-    $controller = 'CommentsController';
-    $action = 'index';
-    break;
-  case 'comment':
-    $controller = 'CommentsController';
-    $action = 'show';
-    break;
-  default:
-    $controller = 'ErrorsController';
-    $action = 'notFound';
-    break;
-}
-
-// Inclusion du contrôleur
-include "controllers/$controller.php";
-
-// Instanciation du contrôleur et appel de l'action
-$controller = new $controller();
-$controller->$action();
-
-// Déconnexion de la base de données
-db_disconnect();
+// Déconnexion de la base de données - Edit : a voir dans un T2
+// db_disconnect();

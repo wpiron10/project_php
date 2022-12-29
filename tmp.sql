@@ -12,14 +12,14 @@ CREATE TABLE comments (
   FOREIGN KEY(post_id) REFERENCES posts(id)
 );
 
-
-INSERT INTO posts (title, body) VALUES ('Article 1', 'Contenu de l''article 1');
+-- TODO - ajouter à posts : date_publication, publisher_name, image_url, reading_time, comments_number
+INSERT INTO posts (title, body) VALUES ('Article 1', 'Contenu de l''article 1'); 
 INSERT INTO posts (title, body) VALUES ('Article 2', 'Contenu de l''article 2');
 INSERT INTO posts (title, body) VALUES ('Article 3', 'Contenu de l''article 3');
 INSERT INTO posts (title, body) VALUES ('Article 4', 'Contenu de l''article 4');
 INSERT INTO posts (title, body) VALUES ('Article 5', 'Contenu de l''article 5');
 
-
+-- TODO - ajouter à posts : comment_date
 INSERT INTO comments (post_id, author, body) VALUES (1, 'Auteur 1', 'Commentaire 1 pour l''article 1');
 INSERT INTO comments (post_id, author, body) VALUES (1, 'Auteur 2', 'Commentaire 2 pour l''article 1');
 INSERT INTO comments (post_id, author, body) VALUES (2, 'Auteur 3', 'Commentaire 1 pour l''article 2');
