@@ -1,43 +1,5 @@
 <?php
 
-// minilib MySQL
-function my_query($query)
-{
-	global $link;
-	mysqli_report(MYSQLI_REPORT_OFF);
-
-	if (empty($link))
-	$link = @mysqli_connect('localhost', 'root', '', 'projetphp');
-
-	if (!$link)
-		die("Failed to connect to MySQL: " . mysqli_connect_error());
-
-	$result = @mysqli_query($link, $query);
-	if (!$result)
-		die("Failed to execute MySQL query: " . mysqli_error($link));
-
-	return $result;
-}
-
-function my_fetch_array($query)
-{
-	$result = my_query($query);
-	$data = [];
-
-	while ($line = mysqli_fetch_array($result))
-		$data[] = $line;
-
-	return $data;
-}
-
-function my_insert_id()
-{
-	global $link;
-	$pk_val = mysqli_insert_id($link);
-	return $pk_val;
-}
-
-
 // classe generique Table
 class Table
 {
@@ -57,7 +19,7 @@ class Table
 	{
 		$query = '';
 
-		// si $this->id_film est set alors on genere une requete UPDATE
+		// si $this->id_film est set alors on génère une requête UPDATE
 		if (isset($this->{$this->primary_key_field_name}))
 		{
 			$query .= 'UPDATE '.$this->table_name.' SET ';
@@ -75,7 +37,7 @@ class Table
 			echo $query.'<br>';
 			$res = my_query($query);
 		}
-		else // sinon on genere une requete INSERT et on recupere l'id auto-incrémenté
+		else // sinon on génère une requête INSERT et on récupère l'id auto-incrémenté
 		{
 			$query .= 	"INSERT INTO $this->table_name (";
 			$first = true;
@@ -121,14 +83,43 @@ class Table
 			$instance = new $class_name;
 			foreach ($instance->fields_names as $field)
 				$instance->$field = $line[$field];
-
+			
+			$instance->id = $line[0];
 			$objects[] = $instance;
 		}
 
 		return $objects;
 	}
 
-	// renvoie une instance hydratée pour la ligne de la table correspondant a la PK fournie en parametre
+	public static function getAllByRestrict(string $column, $value)
+	{
+		$class_name = static::class;
+		$instance_base = new $class_name;
+		$objects = [];
+
+		if (is_int($value))
+		{
+			$query = 'select * from '.$instance_base->table_name.' where '.$column.' = '.$value;
+		}
+		else
+		{
+			$query = 'select * from '.$instance_base->table_name.' where '.$column.' = \''.$value.'\'';
+		}
+		$lines = my_fetch_array($query);
+		foreach ($lines as $line)
+		{
+			$instance = new $class_name;
+			foreach ($instance->fields_names as $field)
+				$instance->$field = $line[$field];
+
+			$instance->id = $line[0];
+			$objects[] = $instance;
+		}
+
+		return $objects;
+	}
+
+	// renvoie une instance hydratée pour la ligne de la table correspondant à la PK fournie en paramètre
 	public static function getOne(int $pk_value)
 	{
 		$class_name = static::class;
@@ -150,11 +141,17 @@ class Table
 		{
 			$this->{$field} = $data[0][$field];
 		}
-
-		// hydrate level 2
-		// ex : pour film, ajouter un attribut genre contenant une instance hydratée de son genre
-		// ET ajouter un attribut distributeur contenant une instance hydratée de son genrdistributeur
-
 	}
+
+	// hydrate level 2
+	// ex : pour film, ajouter un attribut genre contenant une instance hydratée de son genre
+	// ET ajouter un attribut distributeur contenant une instance hydratée de son genrdistributeur
+	// public function hydrate()
+	// {
+	// 	parent::hydrate();
+	// 	$this->genre = new Genre;
+	// 	$this->genre->id_genre = $this->id_genre;
+	// 	$this->genre->hydrate();
+	// }
 
 }
