@@ -1,0 +1,100 @@
+<style>
+main {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+input {
+    width: 100%;
+    padding: 1.5em;
+    outline: none;
+    font-size: 20px;
+    border: 2px solid #222222;
+    margin-bottom: 2em;
+}
+input::placeholder {
+    font-size: 20px;
+}
+textarea {
+    width: 100%;
+    padding: 1.5em;
+    outline: none;
+    font-size: 20px;
+    border: 2px solid #222222;
+    margin-bottom: 2em;
+    resize: none;
+}
+input:last-child {
+    cursor: pointer;
+}
+.error {
+    margin-top: -2em;
+    margin-bottom: 2em;
+    color: red;
+    display: none;
+}
+form span {
+    color: green;
+    display: none;
+}
+
+</style>
+
+<!-- Affichage du formulaire de création d'article de blog -->
+<form  method="POST" action="./Controller/newpostsave.php" id="articleForm">
+    <input type="text" id="title" name="title" placeholder="Titre*" maxlength="200">
+    <input type="text" id="author" name="author" placeholder="Nom/Auteur*" maxlength="20">
+    <input type="text" id="image_url" name="image_url" placeholder="URL de l'image*" maxlength="2000">
+    <div class="error" id="imageUrlError">L'URL de l'image est incorrecte</div>
+
+    <textarea type="text" id="content" name="content" placeholder="contenu*"maxlength="2000"></textarea>
+
+    <input type="submit" value="Envoyer l'article" onclick="verifForm()">
+    <span id="submitconfirm">Bien envoyé !</span>
+</form>
+
+<script>
+  function verifForm() {
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    let image_url = document.getElementById("image_url").value;
+    let content = document.getElementById("content").value;
+
+    let imageUrlError = document.getElementById("imageUrlError");
+
+    if (!title || !author || !image_url || !content) {
+        alert("Tous les champs sont obligatoires !");
+        return;
+    }
+
+    fetch(image_url)
+      .then(response => {
+        if (response.ok && response.headers.get("Content-Type").startsWith("image")) {
+            imageUrlError.style.display = "none";
+            document.getElementById("submitconfirm").style.display = "block";
+            document.getElementById("articleForm").submit();
+            document.getElementById("title").value = "";
+            document.getElementById("author").value = "";
+            document.getElementById("image_url").value = "";
+            document.getElementById("content").value = "";
+        } else {
+            imageUrlError.style.display = "block";
+            return;
+        }
+      })
+      .catch(error => {
+            imageUrlError.style.display = "block";
+            return;
+      });
+  }
+
+  document.getElementById("articleForm").addEventListener("submit", () => {
+    if (event.preventDefault) event.preventDefault();
+    else event.returnValue = false;
+  });
+</script>

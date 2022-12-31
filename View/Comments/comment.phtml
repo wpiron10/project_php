@@ -1,0 +1,31 @@
+<style>
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+.comment {
+    margin: 1em 0;
+    background: #eee;
+    width: 1000px;
+}
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+.comment-date {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+.comment-content {
+    margin-bottom: 0.5em;
+}
+</style>
+
+<!-- Affichage du commentaire -->
+<div class="comment">
+    <p class="comment-author">Par <?= $comment->author ?></p>
+    <p class="comment-date"><?= $comment->date ?></p>
+    <p class="comment-content"><?= $comment->content ?></p>
+</div>
