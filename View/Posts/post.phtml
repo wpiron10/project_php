@@ -1,0 +1,56 @@
+<style>
+main {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+.post {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 0;
+    background: #eee;
+    width: 1000px;
+}
+.post-image {
+    width: 300px;
+    height: 100%;
+    object-fit: cover;
+    margin-right: 1em;
+}
+.post-info {
+    display: flex;
+    flex-direction: column;
+}
+.post-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+.post-author {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+.post-date {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+.post-content {
+    margin-bottom: 0.5em;
+}
+.post-num-comments {
+    font-style: italic;
+}
+</style>
+
+<!-- Affichage de l'article de blog -->
+<div class="post">
+    <img class="post-image" src="<?= $post->image_url ?>" alt="<?= $post->title ?>">
+    <div class="post-info">
+        <h2 class="post-title"><?= $post->title ?></h2>
+        <p class="post-author">Par <?= $post->author ?></p>
+        <p class="post-date"><?= $post->date ?></p>
+        <p class="post-content"><?= $post->content ?></p>
+        <p class="post-num-comments"><?= $post->num_comments ?> commentaire(s)</p>
+        <p><a href="./index.php?route=comments&post_id=<?= $post->id ?>">Voir les commentaires</a></p>
+    </div>
+</div>

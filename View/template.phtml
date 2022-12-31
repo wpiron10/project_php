@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet PHP</title>
+
+    <style> 
+        *,
+        *::before,
+        *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: inherit;
+        }
+        header {
+            background-color: #222222;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2em 1em;
+            border-bottom: 2px solid #ccc;
+        }
+        header h1 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        header nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            justify-content: space-between;
+            width: 600px;
+        }
+
+        header nav ul li {
+            font-size: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        header nav ul li a:hover {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Projet PHP (Architecture MVC avec approche d'ORM)</h1>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="./index.php?route=home">Accueil</a></li>
+                <li><a href="./index.php?route=posts">Articles</a></li>
+                <li><a href="./index.php?route=new_post">Ajouter un Article</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <?php include $view; ?>
+    </main>
+</body>
+</html>

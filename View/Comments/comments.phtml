@@ -1,0 +1,93 @@
+<style>
+body {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+.post {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 0;
+    background: #eee;
+    width: 1000px;
+}
+.post-image {
+    width: 300px;
+    height: 100%;
+    object-fit: cover;
+    margin-right: 1em;
+}
+.post-info {
+    display: flex;
+    flex-direction: column;
+}
+.post-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 1em 0 0.5em 0;
+}
+.post-author {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+.post-date {
+    font-style: italic;
+    margin-bottom: 1em;
+}
+.post-content {
+    margin-bottom: 1em;
+}
+.post-num-comments {
+    font-style: italic;
+}
+h2 {
+    margin: 2em 0 0.5em 0;
+}
+.comment {
+    margin: 1em 0;
+    background: #eee;
+    width: 1000px;
+}
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+.comment-date {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+.comment-content {
+    margin-bottom: 0.5em;
+}
+</style>
+
+<!-- Affichage de l'article de blog associé aux commentaires -->
+
+<?php $post = Post::getOne($post_id); ?>
+<div class="post">
+    <img class="post-image" src="<?= $post->image_url ?>" alt="<?= $post->title ?>">
+    <div class="post-info">
+        <h2 class="post-title"><?= $post->title ?></h2>
+        <p class="post-author">Par <?= $post->author ?></p>
+        <p class="post-date"><?= $post->date ?></p>
+        <p class="post-content"><?= $post->content ?></p>
+        <p class="post-num-comments"><?= $post->num_comments ?> commentaire(s)</p>
+    </div>
+</div>
+
+<!-- Affichage de la liste des commentaires -->
+
+<h2>Liste des commentaires</h2>
+
+<?php foreach ($comments as $comment): ?>
+    <div class="comment">
+        <p class="comment-author">Par <?= $comment->author ?></p>
+        <p class="comment-date"><?= $comment->date ?></p>
+        <p class="comment-content"><?= $comment->content ?></p>
+    </div>
+<?php endforeach; ?>
