@@ -2,6 +2,8 @@ CREATE DATABASE projetphp;
 
 USE projetphp;
 
+ALTER DATABASE projetphp DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_unicode_ci;
+
 CREATE TABLE posts (
   id INT(11) NOT NULL AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
