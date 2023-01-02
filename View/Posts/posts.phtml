@@ -44,6 +44,20 @@ main {
 </style>
 
 <!-- Affichage des articles de blog -->
+
+<div> 
+<div><label for="author">Filtres:</label>
+<form id="filter-form" action="" method="get" onsubmit="document.forms['filter-form'].submit();">
+
+<select name="author" id="author" >
+    <option value="">Please select an author</option>
+    <?php foreach ($posts as $post): ?>
+    <option value={<?= $post->author ?>}><?= $post->author ?></option>
+    <?php endforeach; ?>
+</select>
+<input type="submit" value="Filtrer" />
+    </form>
+</div>
 <?php foreach ($posts as $post): ?>
     <div class="post">
         <img class="post-image" src="<?= $post->image_url ?>" alt="<?= $post->title ?>">
@@ -54,6 +68,7 @@ main {
             <p class="post-content"><?= $post->content ?></p>
             <p class="post-num-comments"><?= $post->num_comments ?> commentaire(s)</p>
             <p><a href="./index.php?route=comments&post_id=<?= $post->id ?>">Voir les commentaires</a></p>
-        </div>
+        </div>      
+    </div>
     </div>
 <?php endforeach; ?>

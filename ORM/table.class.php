@@ -19,7 +19,7 @@ class Table
 	{
 		$query = '';
 
-		// si $this->id_film est set alors on génère une requête UPDATE
+		// si $this->pk est set alors on génère une requête UPDATE
 		if (isset($this->{$this->primary_key_field_name}))
 		{
 			$query .= 'UPDATE '.$this->table_name.' SET ';
@@ -75,18 +75,18 @@ class Table
 		$class_name = static::class;
 		$instance_base = new $class_name;
 		$objects = [];
-
 		$query = 'select * from '.$instance_base->table_name;
+
 		$lines = my_fetch_array($query);
 		foreach ($lines as $line)
 		{
 			$instance = new $class_name;
 			foreach ($instance->fields_names as $field)
 				$instance->$field = $line[$field];
-			
 			$instance->id = $line[0];
 			$objects[] = $instance;
 		}
+	
 
 		return $objects;
 	}
@@ -96,15 +96,19 @@ class Table
 		$class_name = static::class;
 		$instance_base = new $class_name;
 		$objects = [];
-
-		if (is_int($value))
-		{
-			$query = 'select * from '.$instance_base->table_name.' where '.$column.' = '.$value;
+		if (isset($value) && isset($column)){
+			if (is_int($value))
+			{
+				$query = 'select * from '.$instance_base->table_name.' where '.$column.' = '.$value;
+			}
+			else
+			{
+				$query = 'select * from '.$instance_base->table_name.' where '.$column.' = \''.$value.'\'';
+			}
+		} else {
+			$query = 'select * from '.$instance_base->table_name;
 		}
-		else
-		{
-			$query = 'select * from '.$instance_base->table_name.' where '.$column.' = \''.$value.'\'';
-		}
+	
 		$lines = my_fetch_array($query);
 		foreach ($lines as $line)
 		{
