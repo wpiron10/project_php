@@ -1,6 +1,7 @@
 <?php
 
-require_once('./Controller/controller.php'); 
+$path = "../";
+require_once('./controller.php');
 
 $post = new Post;
 $post->title = $_POST["title"];
@@ -15,5 +16,5 @@ $post->date = $formatted_date;
 
 $post->save();
 
-header('Location: index.php?route=posts');
+header('Location: ../index.php?route=posts');
 exit;

@@ -1,6 +1,7 @@
 <?php
 
-require_once('./Controller/controller.php'); 
+$path = "./";
+require_once('./Controller/controller.php');
 
 
 // Routing
