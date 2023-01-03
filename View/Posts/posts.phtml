@@ -1,9 +1,13 @@
 <style>
+    *{
+        color:red;
+    }
 main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 30px;
+    background: black;
 }
 .post {
     display: flex;
@@ -45,19 +49,33 @@ main {
 
 <!-- Affichage des articles de blog -->
 
+<?php   isset($_POST['author']) && $selected_val = $_POST['author']; 
+?> 
 <div> 
 <div><label for="author">Filtres:</label>
-<form id="filter-form" action="" method="get" onsubmit="document.forms['filter-form'].submit();">
 
+<form id="filter-form"  action="" method="post" >
 <select name="author" id="author" >
     <option value="">Please select an author</option>
     <?php foreach ($posts as $post): ?>
-    <option value={<?= $post->author ?>}><?= $post->author ?></option>
+    <option value='<?= $post->author ?>'><?= $post->author ?></option>
     <?php endforeach; ?>
 </select>
+
 <input type="submit" value="Filtrer" />
     </form>
+    <?php
+if(isset($_POST['author']) ){
+   echo $selected_val = '&author='.$_POST['author'];
+    header('Location:./index.php?route=posts'.$selected_val);
+    echo 'Vous avez choisi :'.$_POST['author']; 
+}
+
+?>
 </div>
+
+<!-- <?php $posts= Post::getAllByRestrict('author',$_GET['author']); ?> -->
+
 <?php foreach ($posts as $post): ?>
     <div class="post">
         <img class="post-image" src="<?= $post->image_url ?>" alt="<?= $post->title ?>">

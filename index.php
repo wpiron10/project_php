@@ -6,8 +6,7 @@ require_once('./Controller/controller.php');
 
 // Routing
 $route = isset($_GET['route']) ? $_GET['route'] : 'home';
-$use_template = true;
-
+$use_template = true; 
 // Chargement du contrôleur et de la vue correspondant à la route
 if ($route == 'home')
 {
@@ -16,7 +15,7 @@ if ($route == 'home')
 }
 elseif($route == 'posts')
 {
-    $author = isset($_GET['author']) ? 'author' : null;
+    $author = isset($_POST['author']) ? $_POST['author'] : null;
     $posts= Post::getAllByRestrict('author', $author);
     $view = './View/Posts/posts.phtml';
 }
