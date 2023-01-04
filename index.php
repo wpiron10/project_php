@@ -15,8 +15,8 @@ if ($route == 'home')
 }
 elseif($route == 'posts')
 {
-    $author = isset($_POST['author']) ? $_POST['author'] : null;
-    $posts= Post::getAllByRestrict('author', $author);
+    // Liste de tous les articles de blog (index.php?route=posts)
+    $posts = Post::getAll();
     $view = './View/Posts/posts.phtml';
 }
 elseif($route == 'post')

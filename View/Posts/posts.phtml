@@ -1,13 +1,18 @@
 <style>
-    *{
-        color:red;
-    }
 main {
+    display: flex;
+    flex-direction: column;
+}
+.filtre {
+    order: 1;
+    padding: 30px;
+}
+.content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 30px;
-    background: black;
+    order: 2;
 }
 .post {
     display: flex;
@@ -48,45 +53,59 @@ main {
 </style>
 
 <!-- Affichage des articles de blog -->
-
-<?php   isset($_POST['author']) && $selected_val = $_POST['author']; 
-?> 
-<div> 
-<div><label for="author">Filtres:</label>
-
-<form id="filter-form"  action="" method="post" >
-<select name="author" id="author" >
-    <option value="">Please select an author</option>
+<div class="content">
     <?php foreach ($posts as $post): ?>
-    <option value='<?= $post->author ?>'><?= $post->author ?></option>
+        <div class="post">
+            <img class="post-image" src="<?= $post->image_url ?>" alt="<?= $post->title ?>">
+            <div class="post-info">
+                <h2 class="post-title"><?= $post->title ?></h2>
+                <p class="post-author">Par <?= $post->author ?></p>
+                <p class="post-date"><?= $post->date ?></p>
+                <p class="post-content"><?= $post->content ?></p>
+                <p class="post-num-comments"><?= $post->num_comments ?> commentaire(s)</p>
+                <p><a href="./index.php?route=comments&post_id=<?= $post->id ?>">Voir les commentaires</a></p>
+            </div>      
+        </div>
     <?php endforeach; ?>
-</select>
-
-<input type="submit" value="Filtrer" />
-    </form>
-    <?php
-if(isset($_POST['author']) ){
-   echo $selected_val = '&author='.$_POST['author'];
-    header('Location:./index.php?route=posts'.$selected_val);
-    echo 'Vous avez choisi :'.$_POST['author']; 
-}
-
-?>
 </div>
 
-<!-- <?php $posts= Post::getAllByRestrict('author',$_GET['author']); ?> -->
 
-<?php foreach ($posts as $post): ?>
-    <div class="post">
-        <img class="post-image" src="<?= $post->image_url ?>" alt="<?= $post->title ?>">
-        <div class="post-info">
-            <h2 class="post-title"><?= $post->title ?></h2>
-            <p class="post-author">Par <?= $post->author ?></p>
-            <p class="post-date"><?= $post->date ?></p>
-            <p class="post-content"><?= $post->content ?></p>
-            <p class="post-num-comments"><?= $post->num_comments ?> commentaire(s)</p>
-            <p><a href="./index.php?route=comments&post_id=<?= $post->id ?>">Voir les commentaires</a></p>
-        </div>      
-    </div>
-    </div>
-<?php endforeach; ?>
+<!-- Affichage du filtre -->
+<div class="filtre">
+    <?php $posts = Post::getAll(); ?>
+
+    <form id="filter-form" action="./Controller/postsfilter.php" method="post">
+        <label for="user_name">Filtres :</label>
+        <select name="user_name" id="user_name">
+            <option value="">Please select an author</option>
+            <?php
+                $authors = [];
+                foreach ($posts as $post): 
+                    if (!in_array($post->author, $authors)) {
+                        $authors[] = $post->author;
+                        echo "<option value='$post->author'>$post->author</option>";
+                    }
+                endforeach;
+                ?>
+        </select>
+        <input type="submit" value="Rechercher" onclick="verifFilter()">
+    </form>
+</div>
+
+<script>
+  function verifFilter() {
+    let select = document.getElementById("user_name").value;
+
+    if (select == "") {
+        alert("Sélectionnez un auteur !");
+        return;
+    }
+
+    document.getElementById("filter-form").submit();
+  }
+
+  document.getElementById("filter-form").addEventListener("submit", () => {
+    if (event.preventDefault) event.preventDefault();
+    else event.returnValue = false;
+  });
+</script>
