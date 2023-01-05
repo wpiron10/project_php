@@ -141,9 +141,12 @@ class Table
 		$query = 'select * from '.$this->table_name.' where '.$this->primary_key_field_name.'='.$this->{$this->primary_key_field_name};
 		$data = my_fetch_array($query);
 
-		foreach ($this->fields_names as $field)
+		if (!empty($data))
 		{
-			$this->{$field} = $data[0][$field];
+			foreach ($this->fields_names as $field)
+			{
+				$this->{$field} = $data[0][$field];
+			}
 		}
 	}
 

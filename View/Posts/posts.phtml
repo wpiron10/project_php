@@ -74,7 +74,7 @@ main {
 <div class="filtre">
     <?php $posts = Post::getAll(); ?>
 
-    <form id="filter-form" action="./Controller/postsfilter.php" method="post">
+    <form id="filter-form" action="./index.php?route=user_posts" method="post">
         <label for="user_name">Filtres :</label>
         <select name="user_name" id="user_name">
             <option value="">Please select an author</option>

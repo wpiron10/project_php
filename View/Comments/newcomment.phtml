@@ -46,13 +46,13 @@ form span {
 </style>
 
 <!-- Affichage du formulaire de création d'article de blog -->
-<form  method="POST" action="./Controller/newcomment.php" id="articleForm">
+<form  method="POST" action="./index.php?route=newcommentsave" id="articleForm">
     <input value="<?= $post_id ?>" type="hidden" id="post_id" name="post_id" placeholder="id *" maxlength="20">
     <input type="text" id="author" name="author" placeholder="Nom/Auteur*" maxlength="20">
     <textarea type="text" id="content" name="content" placeholder="contenu*"maxlength="2000"></textarea>   
 
-    <input type="submit" value="Envoyer le commantaire test" onclick="verifForm()">
-    <span id="submitconfirm">Bien envoyé !</span>
+    <input type="submit" value="Ajouter un commentaire" onclick="verifForm()">
+    <span id="submitconfirm">Bien ajouté !</span>
 </form>
 
 <script>
