@@ -85,15 +85,11 @@ elseif($route == 'new_post')
 elseif($route == 'newpostsave')
 {
     $post = new Post;
-    $post->title = $_POST["title"];
-    $post->content = $_POST["content"];
+    $post->title = str_replace("'", "''", $_POST["title"]);
+    $post->content = str_replace("'", "''", $_POST["content"]);
     $post->image_url = $_POST["image_url"];
-    $post->author = $_POST["author"];
+    $post->author = str_replace("'", "''", $_POST["author"]);
     $post->num_comments = 0;
-
-    // str_replace("'", "''", $post->title);
-    // str_replace("'", "''", $post->content);
-    // str_replace("'", "''", $post->author);
 
     $date = new DateTime();
     $formatted_date = $date->format('Y-m-d');
@@ -122,11 +118,8 @@ elseif($route == 'newcommentsave')
 {
     $comment = new Comment;
     $comment->post_id = $_POST["post_id"];
-    $comment->author = $_POST["author"];
-    $comment->content = $_POST["content"];
-
-    // str_replace("'", "''", $comment->author);
-    // str_replace("'", "''", $comment->content);
+    $comment->author = str_replace("'", "''", $_POST["author"]);
+    $comment->content = str_replace("'", "''", $_POST["content"]);
 
     $date = new DateTime();
     $formatted_date = $date->format('Y-m-d');
