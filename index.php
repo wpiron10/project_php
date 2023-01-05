@@ -51,14 +51,18 @@ elseif($route == 'new_post')
 {
     $view = './View/Posts/newpost.phtml';
 }
+elseif($route == 'newcomment')
+{
+    $post_id = $_GET['post_id'];
+    $view = './View/Comments/newcomment.phtml';
+}
+
 else
 {
     // Page 404 car le routing ne correspond à rien (index.php?route=lorem)
     header("HTTP/1.0 404 Not Found");
     $use_template = false;
 }
-
-
 
 if ($use_template)
 {
