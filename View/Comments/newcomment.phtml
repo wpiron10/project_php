@@ -1,0 +1,76 @@
+<style>
+main {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+input {
+    width: 100%;
+    padding: 1.5em;
+    outline: none;
+    font-size: 20px;
+    border: 2px solid #222222;
+    margin-bottom: 2em;
+}
+input::placeholder {
+    font-size: 20px;
+}
+textarea {
+    width: 100%;
+    padding: 1.5em;
+    outline: none;
+    font-size: 20px;
+    border: 2px solid #222222;
+    margin-bottom: 2em;
+    resize: none;
+}
+input:last-child {
+    cursor: pointer;
+}
+.error {
+    margin-top: -2em;
+    margin-bottom: 2em;
+    color: red;
+    display: none;
+}
+form span {
+    color: green;
+    display: none;
+}
+
+</style>
+
+<!-- Affichage du formulaire de création d'article de blog -->
+<form  method="POST" action="./Controller/newcomment.php" id="articleForm">
+    <input value="<?= $post_id ?>" type="hidden" id="post_id" name="post_id" placeholder="id *" maxlength="20">
+    <input type="text" id="author" name="author" placeholder="Nom/Auteur*" maxlength="20">
+    <textarea type="text" id="content" name="content" placeholder="contenu*"maxlength="2000"></textarea>   
+
+    <input type="submit" value="Envoyer le commantaire test" onclick="verifForm()">
+    <span id="submitconfirm">Bien envoyé !</span>
+</form>
+
+<script>
+function verifForm()
+{
+    let author = document.getElementById("author").value;
+    let content = document.getElementById("content").value;
+
+    if (!author || !content) {
+        alert("Tous les champs sont obligatoires !");
+        return;
+    }
+    
+    document.getElementById("articleForm").submit();
+}
+
+document.getElementById("articleForm").addEventListener("submit", () => {
+    if (event.preventDefault) event.preventDefault();
+    else event.returnValue = false;
+});
+</script>
