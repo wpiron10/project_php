@@ -3,18 +3,17 @@
 $path = "../";
 require_once('./controller.php');
 
-$post = new Comment;
-$post->post_id = $_POST["post_id"]; ;
-$post->author = $_POST["author"];
-$post->content = $_POST["content"];
-
+$comment = new Comment;
+$comment->post_id = $_POST["post_id"]; ;
+$comment->author = $_POST["author"];
+$comment->content = $_POST["content"];
 
 $date = new DateTime();
 $formatted_date = $date->format('Y-m-d');
-$post->date = $formatted_date;
+$comment->date = $formatted_date;
 
 
-$post->save();
+$comment->save();
 
-header('Location: ../index.php?route=posts');
+header('Location: ../index.php?route=comments&post_id='.$_POST["post_id"]);
 exit;

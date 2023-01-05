@@ -53,8 +53,11 @@ h2 {
     <span>Accueil du site</span>
     <span>route=home</span>
     
-    <span>Liste de tous les articles de blog avec possibilité de filtrer selon l'auteur de l'article.</span>
+    <span>Liste de tous les articles</span>
     <span>route=posts</span>
+    
+    <span>Liste de tous les articles de blog d'un utilisateur d'après le nom</span>
+    <span>route=user_posts&user_name={nom (exemple: Charlie)}</span>
 
     <span>Affiche un article de blog d'après l'ID</span>
     <span>route=post&post_id={ID de l'article (exemple: 2)}</span>
@@ -65,11 +68,11 @@ h2 {
     <span>Affiche un commentaire de blog d'après l'ID</span>
     <span>route=comment&comment_id={ID du commentaire (exemple: 2)}</span>
 
-    <span>Liste de tous les articles de blog d'un utilisateur d'après le nom</span>
-    <span>route=user_posts&user_name={nom (exemple: Charlie)}</span>
-
     <span>Page d'ajout d'article</span>
     <span>route=new_post</span>
+
+    <span>Page d'ajout d'un commentaire à un article</span>
+    <span>route=newcomment&post_id={ID du commentaire (exemple: 2)}</span>
 
     <span>Page 404 si query ne correspon à rien</span>
     <span>route={autre valeur (exemple: lorem)}</span>

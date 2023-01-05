@@ -47,47 +47,30 @@ form span {
 
 <!-- Affichage du formulaire de création d'article de blog -->
 <form  method="POST" action="./Controller/newcomment.php" id="articleForm">
-<input value="<?= $post_id ?>" type="hidden" id="post_id" name="post_id" placeholder="id *" maxlength="20">
-<input type="text" id="author" name="author" placeholder="Nom/Auteur*" maxlength="20">
-<textarea type="text" id="content" name="content" placeholder="contenu*"maxlength="2000"></textarea>
+    <input value="<?= $post_id ?>" type="hidden" id="post_id" name="post_id" placeholder="id *" maxlength="20">
+    <input type="text" id="author" name="author" placeholder="Nom/Auteur*" maxlength="20">
+    <textarea type="text" id="content" name="content" placeholder="contenu*"maxlength="2000"></textarea>   
 
-<!--   <input type="text" id="image_url" name="image_url" placeholder="commentaire" maxlength="2000">-->
-
-
-   
     <input type="submit" value="Envoyer le commantaire test" onclick="verifForm()">
     <span id="submitconfirm">Bien envoyé !</span>
 </form>
 
 <script>
-  function verifForm() {
-    
+function verifForm()
+{
     let author = document.getElementById("author").value;
     let content = document.getElementById("content").value;
-
-    
 
     if (!author || !content) {
         alert("Tous les champs sont obligatoires !");
         return;
     }
     
-      .then(response => {
-        if (response.ok && response.headers.get("Content-Type").startsWith("image")) {
-            imageUrlError.style.display = "none";
-            document.getElementById("submitconfirm").style.display = "block";
-            document.getElementById("articleForm").submit();
-            
-            document.getElementById("author").value = "";
-           
-            document.getElementById("content").value = "";
-        } 
+    document.getElementById("articleForm").submit();
+}
 
-    
-    } )}
-
-  document.getElementById("articleForm").addEventListener("submit", () => {
+document.getElementById("articleForm").addEventListener("submit", () => {
     if (event.preventDefault) event.preventDefault();
     else event.returnValue = false;
-  });
+});
 </script>

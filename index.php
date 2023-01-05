@@ -49,10 +49,12 @@ elseif($route == 'user_posts' && isset($_GET['user_name']))
 }
 elseif($route == 'new_post')
 {
+    // Ajouter un article (index.php?route=new_post)
     $view = './View/Posts/newpost.phtml';
 }
-elseif($route == 'newcomment')
+elseif($route == 'newcomment' && isset($_GET['post_id']))
 {
+    // Ajouter un commentaire à un article (index.php?route=newcomment&post_id=2)
     $post_id = $_GET['post_id'];
     $view = './View/Comments/newcomment.phtml';
 }
