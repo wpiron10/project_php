@@ -20,28 +20,28 @@ elseif($route == 'posts')
     $posts = Post::getAll();
     $view = './View/Posts/posts.phtml';
 }
-elseif($route == 'post')
+elseif($route == 'post' && isset($_GET['post_id']))
 {
     // Affiche un article de blog (index.php?route=post&post_id=2)
     $post_id = $_GET['post_id'];
     $post = Post::getOne($post_id);
     $view = './View/Posts/post.phtml';
 }
-elseif($route == 'comments')
+elseif($route == 'comments' && isset($_GET['post_id']))
 {
     // Liste de tous les commentaires d'un article de blog (index.php?route=comments&post_id=2)
     $post_id = $_GET['post_id'];
     $comments = Comment::getAllByRestrict('post_id', $post_id);
     $view = './View/Comments/comments.phtml';
 }
-elseif($route == 'comment')
+elseif($route == 'comment' && isset($_GET['comment_id']))
 {
     // Affiche un commentaire de blog (index.php?route=comment&comment_id=2)
     $comment_id = $_GET['comment_id'];
     $comment = Comment::getOne($comment_id);
     $view = './View/Comments/comment.phtml';
 }
-elseif($route == 'user_posts')
+elseif($route == 'user_posts' && isset($_GET['user_name']))
 {
     // Liste de tous les articles de blog d'un utilisateur (index.php?route=user_posts&user_name=Charlie)
     $user_name = $_GET['user_name'];

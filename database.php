@@ -28,6 +28,12 @@ function my_fetch_array($query)
 	while ($line = mysqli_fetch_array($result))
 		$data[] = $line;
 
+	if (empty($data))
+	{
+		header("HTTP/1.0 404 Not Found");
+		exit;
+	}
+
 	return $data;
 }
 
