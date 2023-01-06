@@ -72,7 +72,7 @@ main {
 
 <!-- Affichage du filtre -->
 <div class="filtre">
-    <?php $posts = Post::getAll(); ?>
+
 
     <form id="filter-form" action="./index.php?route=user_posts" method="post">
         <label for="user_name">Filtres :</label>
@@ -80,7 +80,7 @@ main {
             <option value="">Please select an author</option>
             <?php
                 $authors = [];
-                foreach ($posts as $post): 
+                foreach ($all_posts as $post): 
                     if (!in_array($post->author, $authors)) {
                         $authors[] = $post->author;
                         echo "<option value='$post->author'>$post->author</option>";

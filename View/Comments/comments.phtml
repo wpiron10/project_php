@@ -67,8 +67,6 @@ h2 {
 </style>
 
 <!-- Affichage de l'article de blog associé aux commentaires -->
-
-<?php $post = Post::getOne($post_id); ?>
 <div class="post">
     <img class="post-image" src="<?= $post->image_url ?>" alt="<?= $post->title ?>">
     <div class="post-info">

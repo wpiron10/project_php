@@ -69,6 +69,8 @@ elseif($route == 'user_posts' && (isset($_POST['user_name']) || isset($_GET['use
     $user_name = isset($_GET['user_name']) ? $_GET['user_name'] : $_POST['user_name'];
     $posts = Post::getAllByRestrict('author', $user_name);
 
+    $all_posts = Post::getAll();
+
     if (empty($posts[0]->title))
 	{
 		header("HTTP/1.0 404 Not Found");
@@ -90,6 +92,7 @@ elseif($route == 'newpostsave')
     $post->image_url = $_POST["image_url"];
     $post->author = str_replace("'", "''", $_POST["author"]);
     $post->num_comments = 0;
+
 
     $date = new DateTime();
     $formatted_date = $date->format('Y-m-d');
